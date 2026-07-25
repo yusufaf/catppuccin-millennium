@@ -1,0 +1,52 @@
+/*
+ * Panels, dialogs and content surfaces.
+ *
+ * Steam's own rules are usually `.<hashed>.DialogContent` (specificity 0-2-0),
+ * so a bare `.DialogContent` would lose regardless of load order. Class names
+ * are repeated to raise specificity — the documented approach for Millennium
+ * themes, and stabler than `!important` because a later rule can still win.
+ */
+
+.DialogContent.DialogContent,
+.DialogContent_InnerWidth.DialogContent_InnerWidth {
+	background-color: var(--ctp-bg);
+	color: var(--ctp-fg);
+}
+
+.DialogBody.DialogBody {
+	color: var(--ctp-fg);
+}
+
+.DialogHeader.DialogHeader,
+.DialogSubHeader.DialogSubHeader {
+	color: var(--ctp-fg);
+}
+
+.DialogLabel.DialogLabel {
+	color: var(--ctp-fg-muted);
+}
+
+.DialogDescription.DialogDescription,
+.DialogBodyText.DialogBodyText {
+	color: var(--ctp-fg-dim);
+}
+
+/* Modal shells and popups */
+.Panel.Panel {
+	border-color: var(--ctp-border);
+}
+
+.ModalPosition.ModalPosition .ModalPositionEasing,
+.ModalDialogPopup.ModalDialogPopup {
+	color: var(--ctp-fg);
+}
+
+.DialogContent.DialogContent .DialogFooter,
+.DialogFooter.DialogFooter {
+	border-top-color: var(--ctp-border);
+}
+
+/* Separators Steam draws as thin panels or hairlines */
+.DialogControlsSection.DialogControlsSection + .DialogControlsSection.DialogControlsSection {
+	border-top-color: var(--ctp-border);
+}

@@ -1,0 +1,46 @@
+/*
+ * Window shell: titlebar, window controls, and the settings page chrome.
+ * Scoped to the main Steam window where it matters, using the breadcrumb class
+ * Millennium puts on <html> (language-independent, unlike aria-label hooks).
+ */
+
+.TitleBar.TitleBar,
+.title-area.title-area {
+	color: var(--ctp-fg);
+}
+
+.title-area-highlight.title-area-highlight {
+	background-color: var(--ctp-bg-deep);
+}
+
+.windowControlButton.windowControlButton {
+	color: var(--ctp-fg-dim);
+	transition: background-color 120ms ease, color 120ms ease;
+}
+
+.windowControlButton.windowControlButton:hover {
+	background-color: var(--ctp-elevated-hover);
+	color: var(--ctp-fg);
+}
+
+.closeButton.closeButton:hover {
+	background-color: var(--ctp-danger);
+	color: var(--ctp-brand-fg);
+}
+
+/* Settings window: left page list and content area */
+.PageListColumn.PageListColumn {
+	background-color: var(--ctp-bg-alt);
+	border-right: 1px solid var(--ctp-border);
+}
+
+.PageListColumn.PageListColumn .PageListItem_Selected,
+.PageListColumn.PageListColumn [class*='PageListItem'][class*='Selected'] {
+	background-color: var(--ctp-elevated);
+	color: var(--ctp-fg);
+}
+
+/* Tooltips */
+.tool-tip-source.tool-tip-source {
+	color: inherit;
+}

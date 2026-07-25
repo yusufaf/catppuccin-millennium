@@ -1,0 +1,86 @@
+/*
+ * Buttons, inputs and other interactive controls.
+ * `.DialogButton` is Steam-wide and unhashed, so it is the safest hook we have.
+ */
+
+.DialogButton.DialogButton {
+	background-color: var(--ctp-elevated);
+	color: var(--ctp-fg);
+	border-radius: var(--ctp-radius-sm);
+	transition: background-color 120ms ease, color 120ms ease;
+}
+
+.DialogButton.DialogButton:hover,
+.DialogButton.DialogButton.Focusable:focus {
+	background-color: var(--ctp-elevated-hover);
+	color: var(--ctp-fg);
+}
+
+.DialogButton.DialogButton:active {
+	background-color: var(--ctp-elevated-active);
+}
+
+.DialogButton.DialogButton.Disabled,
+.DialogButton.DialogButton:disabled {
+	background-color: var(--ctp-elevated);
+	color: var(--ctp-fg-disabled);
+}
+
+/* Primary / confirmatory actions carry the accent */
+.DialogButton.DialogButton.Primary,
+.DialogButton.DialogButton.DialogButtonPrimary {
+	background-color: var(--ctp-brand);
+	color: var(--ctp-brand-fg);
+	font-weight: 600;
+}
+
+.DialogButton.DialogButton.Primary:hover,
+.DialogButton.DialogButton.DialogButtonPrimary:hover {
+	background-color: var(--ctp-brand);
+	filter: brightness(1.1);
+}
+
+/* Destructive actions */
+.DialogButton.DialogButton.Destructive {
+	background-color: var(--ctp-danger);
+	color: var(--ctp-brand-fg);
+}
+
+/* Text fields */
+.DialogInput.DialogInput,
+.DialogTextInputBase.DialogTextInputBase,
+input[type='text'],
+input[type='search'],
+input[type='password'],
+input[type='number'],
+textarea {
+	background-color: var(--ctp-bg-deep);
+	color: var(--ctp-fg);
+	border-color: var(--ctp-border);
+	border-radius: var(--ctp-radius-sm);
+}
+
+.DialogInput.DialogInput:focus,
+input[type='text']:focus,
+input[type='search']:focus,
+textarea:focus {
+	border-color: var(--ctp-brand);
+	outline: none;
+}
+
+::placeholder {
+	color: var(--ctp-fg-placeholder);
+}
+
+/* Checkboxes and toggles */
+.DialogCheckbox.DialogCheckbox .Checked,
+.DialogToggle.DialogToggle .On {
+	background-color: var(--ctp-brand);
+	color: var(--ctp-brand-fg);
+}
+
+/* Steam marks the focused element in its own gamepad-style navigation */
+.Focusable.Focusable:focus-visible,
+.gpfocuswithin.gpfocuswithin {
+	outline-color: var(--ctp-focus);
+}

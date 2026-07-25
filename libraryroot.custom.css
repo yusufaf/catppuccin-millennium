@@ -1,3 +1,6 @@
 /* Main Steam window, menus, modals, toasts, overlay browser. */
 @import "src/core/tokens.css";
 @import "src/core/base.css";
+@import "src/core/surfaces.css";
+@import "src/core/controls.css";
+@import "src/client/shell.css";
