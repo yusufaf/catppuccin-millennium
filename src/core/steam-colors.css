@@ -27,6 +27,14 @@
 	border-color: var(--ctp-brand);
 }
 
+/* The active tab's 3px underline is a ::after pseudo-element, rgb(26,159,255).
+ * Invisible to a DOM scan, and Steam styles it through the parent's active
+ * class, so the selector has to be scoped there and doubled on both halves. */
+._1gqEjB5QsKT_NftD1dEsdZ._1gqEjB5QsKT_NftD1dEsdZ ._19axKcqYRuaJ8vdYKYmtTQ._19axKcqYRuaJ8vdYKYmtTQ::after,
+._19axKcqYRuaJ8vdYKYmtTQ._19axKcqYRuaJ8vdYKYmtTQ::after {
+	background-color: var(--ctp-brand);
+}
+
 /* Shelf "new" badge, rgb(26, 159, 255) */
 .N8aJrSpxQ6II4CY_aFdYI.N8aJrSpxQ6II4CY_aFdYI {
 	background-color: var(--ctp-brand);
