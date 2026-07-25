@@ -1,0 +1,140 @@
+/*
+ * Store and Community web views.
+ *
+ * Unlike the client UI, these pages use Steam's long-standing public class
+ * names, so this file is far less fragile than src/client/*.css.
+ * Steam's stock palette here: #1b2838 page, #171a21 header/footer,
+ * #66c0f4 links, #4c6b22/#a4d007 green buttons and discount badges.
+ */
+
+html,
+body,
+body.v6 {
+	background-color: var(--ctp-bg);
+	background-image: none;
+	color: var(--ctp-fg);
+}
+
+/* Page frame and content wells */
+.responsive_page_frame,
+.responsive_page_content,
+#responsive_page_template_content,
+.page_content_ctn,
+.home_page_body_ctn,
+.page_content {
+	background-color: transparent;
+	color: var(--ctp-fg);
+}
+
+/* Global header and footer */
+#global_header,
+#global_header .content,
+.responsive_header,
+#footer,
+#footer_secondary_nav,
+.footer_content {
+	background-color: var(--ctp-bg-deep);
+	color: var(--ctp-fg-muted);
+}
+
+#global_header .supernav,
+#global_header a,
+.menuitem {
+	color: var(--ctp-fg-muted);
+}
+
+#global_header .supernav:hover,
+#global_header a:hover,
+.menuitem:hover {
+	color: var(--ctp-fg);
+}
+
+/* Links */
+a,
+a.linkbar,
+.blockbg a {
+	color: var(--ctp-link);
+}
+
+a:hover {
+	color: var(--ctp-brand);
+}
+
+/* Cards, capsules and content wells */
+.home_ctn,
+.home_page_content,
+.game_area_purchase_game,
+.game_area_purchase_game_wrapper,
+.tab_item,
+.search_result_row,
+.block,
+.blockbg,
+.game_page_autocollapse_ctn,
+.glance_ctn,
+.sale_item_browser {
+	background-color: var(--ctp-bg-alt);
+	background-image: none;
+	color: var(--ctp-fg);
+	border-color: var(--ctp-border);
+}
+
+/* Tags and pills */
+.app_tag,
+.popular_tag,
+.game_area_details_specs .name {
+	background-color: var(--ctp-elevated);
+	color: var(--ctp-fg-muted);
+	border-color: var(--ctp-border);
+}
+
+/* Primary buttons — Steam's green "buy"/"play" family */
+.btn_green_white_innerfade,
+.btn_addtocart,
+.btnv6_green_white_innerfade {
+	background: var(--ctp-success);
+	color: var(--ctp-brand-fg);
+}
+
+/* Secondary/blue buttons */
+.btn_blue_steamui,
+.btnv6_blue_hoverfade,
+.btn_medium,
+.btnv6_blue_blue_innerfade {
+	background: var(--ctp-brand);
+	color: var(--ctp-brand-fg);
+}
+
+/* Discount badges — Steam's acid green on dark green */
+.discount_block,
+.discount_pct {
+	background-color: var(--ctp-success);
+	color: var(--ctp-brand-fg);
+}
+
+.discount_original_price {
+	color: var(--ctp-fg-disabled);
+}
+
+/* Inputs */
+#store_nav_search_term,
+input[type='text'],
+input[type='search'],
+select,
+textarea {
+	background-color: var(--ctp-bg-deep);
+	color: var(--ctp-fg);
+	border-color: var(--ctp-border);
+}
+
+/* Review sentiment keeps its meaning, on Catppuccin colours */
+.game_review_summary.positive {
+	color: var(--ctp-success);
+}
+
+.game_review_summary.mixed {
+	color: var(--ctp-warning);
+}
+
+.game_review_summary.negative {
+	color: var(--ctp-danger);
+}
