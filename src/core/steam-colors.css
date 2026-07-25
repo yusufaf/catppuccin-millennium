@@ -1,0 +1,37 @@
+/*
+ * Steam hardcodes a handful of brand colours instead of using variables.
+ * This file remaps those, so the same rule covers every view that reuses
+ * the component. Original colour is noted next to each group.
+ */
+
+/* Pale informational blue text, rgb(202, 228, 251) */
+._3cV3O8FnPQqpJO5kIMUlLX._3cV3O8FnPQqpJO5kIMUlLX,
+._2mZ8LlvoUiyeEUtIWuTri._2mZ8LlvoUiyeEUtIWuTri,
+._1PxXcZNpN0cCxbnjEoTdYT._1PxXcZNpN0cCxbnjEoTdYT {
+	color: var(--ctp-fg-muted);
+}
+
+/* Active navigation tab and link accents, rgb(26, 159, 255) */
+/* Repeated a third time: Steam styles one state of this element with an extra
+ * class, which outranks a two-class selector. */
+._19axKcqYRuaJ8vdYKYmtTQ._19axKcqYRuaJ8vdYKYmtTQ._19axKcqYRuaJ8vdYKYmtTQ {
+	color: var(--ctp-brand);
+	border-color: var(--ctp-brand);
+}
+
+/* Header action button, rgb(25, 153, 255) */
+._2Szzh5sKyGgnLUR870zbDE._1oEwirQksXfZ-3RWWslbAR {
+	background-color: var(--ctp-brand);
+	color: var(--ctp-brand-fg);
+}
+
+/* Header action button in its "live"/success state, rgb(92, 126, 16) */
+._2Szzh5sKyGgnLUR870zbDE._3L1c8C0o_xXzPy26aoLBFd {
+	background-color: var(--ctp-success);
+	color: var(--ctp-brand-fg);
+}
+
+/* Spinner and progress strokes, rgba(202, 228, 251, 0.5) */
+._3SFRZYIb9Y2q7YsVtB3YKb._3SFRZYIb9Y2q7YsVtB3YKb {
+	stroke: color-mix(in srgb, var(--ctp-brand) 60%, transparent);
+}
