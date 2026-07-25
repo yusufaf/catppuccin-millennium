@@ -14,7 +14,7 @@
 
 /* Primary text — was rgb(255, 255, 255) */
 ._3O48LaKWcabKx07xdrt1TH._3O48LaKWcabKx07xdrt1TH,
-._1XmVtR1hMvJmgGg2ltacUl._1XmVtR1hMvJmgGg2ltacUl,
+._1XmVtR1hMvJmgGg2ltacUl._1XmVtR1hMvJmgGg2ltacUl._1XmVtR1hMvJmgGg2ltacUl,
 ._2EXJTyc69b45nXI4h3RknI._2EXJTyc69b45nXI4h3RknI,
 ._3om6pVKUdxdBkypYpSroHM._3om6pVKUdxdBkypYpSroHM,
 ._2ohOQgahhMYnIEfAQmv9B8._2ohOQgahhMYnIEfAQmv9B8,
@@ -22,8 +22,12 @@
 	color: var(--ctp-fg);
 }
 
-/* Secondary text — was rgba(255,255,255,0.7-0.8) and rgb(221,221,221) */
-.DVBcpUzJ0x6kaRMfug0OJ.DVBcpUzJ0x6kaRMfug0OJ,
+/* Secondary text — was rgba(255,255,255,0.7-0.8) and rgb(221,221,221).
+ * Tripled: Steam scopes several of these through a parent shelf class, which
+ * beats a two-class selector. */
+.DVBcpUzJ0x6kaRMfug0OJ.DVBcpUzJ0x6kaRMfug0OJ.DVBcpUzJ0x6kaRMfug0OJ,
+._2ADpTpv53dcY1uFpMWO1KT._2ADpTpv53dcY1uFpMWO1KT._2ADpTpv53dcY1uFpMWO1KT,
+._3gwMkKp82bb5aZj4EeQnpi._3gwMkKp82bb5aZj4EeQnpi._3gwMkKp82bb5aZj4EeQnpi,
 ._1coklnw2_jdRKBFC5RMpfh._1coklnw2_jdRKBFC5RMpfh,
 ._3bkuozxKIatrWG3aeisthc._3bkuozxKIatrWG3aeisthc,
 ._2hfibYuzyMOQ0sj2egsHh0._2hfibYuzyMOQ0sj2egsHh0 {
