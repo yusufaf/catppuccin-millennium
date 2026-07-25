@@ -1,1 +1,6 @@
 tools/
+
+# Written by Millennium into the installed theme folder for update tracking.
+# It shows up in the working tree because the dev checkout is junctioned into
+# <Steam>\millennium\themes\.
+metadata.json
