@@ -1,0 +1,87 @@
+/*
+ * Library: the surfaces that actually make the client look Steam-blue.
+ *
+ * These class names are Steam's generated ones. They are stable between most
+ * client releases but do churn, so they are grouped here by role with the
+ * colour they replace, which makes a re-map after a Steam update mechanical.
+ * Verified against Steam client build 2026-07 (Chrome 126).
+ */
+
+/* Main library content area — was rgb(34, 36, 42) */
+._2Dd4T78PcCTUVgOtDGFY5j._2Dd4T78PcCTUVgOtDGFY5j {
+	background-color: var(--ctp-bg);
+}
+
+/* Library home backdrop — was a radial gradient over rgb(36, 40, 47) */
+._3lDczhulqraStjCitLYJ1K._3lDczhulqraStjCitLYJ1K {
+	background-color: var(--ctp-bg);
+	background-image: radial-gradient(100% 100% at 45% 35%, var(--ctp-elevated) 0%, var(--ctp-bg) 60%);
+}
+
+/* Game list sidebar — was a linear gradient rgb(45,51,60) -> rgb(36,40,47) */
+._3x1HklzyDs4TEjACrRO2tB._3x1HklzyDs4TEjACrRO2tB {
+	background-image: none;
+	background-color: var(--ctp-bg-alt);
+}
+
+/* Top navigation strip and bottom bar — were rgb(23, 29, 37) */
+._3Z7VQ1IMk4E3HsHvrkLNgo._3Z7VQ1IMk4E3HsHvrkLNgo,
+._3vCzSrrXZzZjVJFZNg9SGu._3vCzSrrXZzZjVJFZNg9SGu {
+	background-color: var(--ctp-bg-deep);
+}
+
+/* Selected game in the list — was Steam's rgb(26, 159, 255) */
+._2iJsgdTIX9Tj23rWnB7Q-c._2iJsgdTIX9Tj23rWnB7Q-c {
+	background-color: var(--ctp-brand);
+	color: var(--ctp-brand-fg);
+}
+
+/* Game hero fade over the capsule art — was rgba(39, 44, 53, x) */
+.Jbe--NUNw7sxbxGsMSjVa.Jbe--NUNw7sxbxGsMSjVa {
+	background-image: linear-gradient(rgba(0, 0, 0, 0) 0%, var(--ctp-bg) 100%);
+}
+
+/* Shelf / row placeholders while art loads — were flat rgb(100, 100, 100) */
+._3QS6OBHpvI5bXsSQA2zQuW._3QS6OBHpvI5bXsSQA2zQuW {
+	background-color: var(--ctp-elevated);
+}
+
+/* Activity composer */
+._1JlC29Ic6L-QvL-39X_d-X._1JlC29Ic6L-QvL-39X_d-X {
+	background-color: var(--ctp-bg-deep);
+	color: var(--ctp-fg);
+}
+
+/* Scroll backdrops layered behind the home feed — were gradients from
+ * rgb(45,51,60) into rgb(36,40,47) / rgb(23,29,37) */
+._3Sb2o_mQ30IDRh0C72QUUu._3Sb2o_mQ30IDRh0C72QUUu,
+._3VQUewWB8g6Z5qB4C7dGFr._3VQUewWB8g6Z5qB4C7dGFr,
+._17uEBe5Ri8TMsnfELvs8-N._17uEBe5Ri8TMsnfELvs8-N {
+	background-image: linear-gradient(var(--ctp-bg-alt) 0%, var(--ctp-bg) 20%);
+}
+
+/* Assorted panels Steam paints in rgb(23, 29, 37) */
+.UkR3sY319PuaUNuUWks2K.UkR3sY319PuaUNuUWks2K,
+._2CmrnGY-Amtd83ScJkFvx2._2CmrnGY-Amtd83ScJkFvx2,
+._2TKEazUUS3TlniZfpc8OOe._2TKEazUUS3TlniZfpc8OOe {
+	background-color: var(--ctp-bg-alt);
+}
+
+/* Hover sheen over shelf capsules — was a near-white wash */
+.MyNb5dG3FsBnKdp8j_ntk.MyNb5dG3FsBnKdp8j_ntk {
+	background-image: linear-gradient(color-mix(in srgb, var(--ctp-fg) 0%, transparent) 0%, color-mix(in srgb, var(--ctp-fg) 12%, transparent) 100%);
+}
+
+/* Scrollbar-ish and divider greys */
+._2d1hSvdpY5L2-GN1EnUb9Z._2d1hSvdpY5L2-GN1EnUb9Z {
+	background-color: var(--ctp-elevated-active);
+}
+
+._20QAC4WMXm8qFE8waUT5oo._20QAC4WMXm8qFE8waUT5oo {
+	background-color: color-mix(in srgb, var(--ctp-bg-deep) 60%, transparent);
+}
+
+/* Section headers in the library home feed */
+._3A_c3YHYd4YIjA8Y-olnPl._3A_c3YHYd4YIjA8Y-olnPl {
+	background-image: radial-gradient(circle at 0% 20%, color-mix(in srgb, var(--ctp-brand) 15%, transparent) 0%, transparent 70%);
+}
