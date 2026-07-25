@@ -1,0 +1,53 @@
+/*
+ * Semantic token layer.
+ *
+ * RULE: this file and every other file outside src/flavors/ and src/accents/
+ * may only CONSUME palette variables via var(--ctp-<name>, <fallback>).
+ * Never redefine --ctp-<paletteName> here.
+ *
+ * Why: Millennium injects Conditions CSS (flavors/accents) BEFORE Patches CSS
+ * (this file). At equal specificity the later sheet wins, so redefining a
+ * palette var here would permanently override the flavor dropdown. Referencing
+ * with a fallback resolves at use time and is order-proof.
+ * Fallbacks below are Mocha + mauve, so the theme is never unstyled.
+ */
+
+:root {
+	/* Surfaces */
+	--ctp-bg: var(--ctp-base, #1e1e2e);
+	--ctp-bg-alt: var(--ctp-mantle, #181825);
+	--ctp-bg-deep: var(--ctp-crust, #11111b);
+	--ctp-elevated: var(--ctp-surface0, #313244);
+	--ctp-elevated-hover: var(--ctp-surface1, #45475a);
+	--ctp-elevated-active: var(--ctp-surface2, #585b70);
+
+	/* Lines */
+	--ctp-border: var(--ctp-surface1, #45475a);
+	--ctp-border-strong: var(--ctp-surface2, #585b70);
+	--ctp-divider: var(--ctp-overlay0, #6c7086);
+
+	/* Text */
+	--ctp-fg: var(--ctp-text, #cdd6f4);
+	--ctp-fg-muted: var(--ctp-subtext1, #bac2de);
+	--ctp-fg-dim: var(--ctp-subtext0, #a6adc8);
+	--ctp-fg-disabled: var(--ctp-overlay1, #7f849c);
+	--ctp-fg-placeholder: var(--ctp-overlay0, #6c7086);
+
+	/* Brand / interaction */
+	--ctp-brand: var(--ctp-accent, var(--ctp-mauve, #cba6f7));
+	--ctp-brand-fg: var(--ctp-base, #1e1e2e);
+	--ctp-link: var(--ctp-blue, #89b4fa);
+	--ctp-focus: var(--ctp-brand);
+	--ctp-selection: var(--ctp-brand);
+
+	/* Status */
+	--ctp-success: var(--ctp-green, #a6e3a1);
+	--ctp-warning: var(--ctp-yellow, #f9e2af);
+	--ctp-danger: var(--ctp-red, #f38ba8);
+	--ctp-info: var(--ctp-sky, #89dceb);
+
+	/* Shape — kept as tokens so a slider condition can drive them later */
+	--ctp-radius-sm: 4px;
+	--ctp-radius: 8px;
+	--ctp-radius-lg: 12px;
+}

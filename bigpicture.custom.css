@@ -1,0 +1,5 @@
+/*
+ * Big Picture Mode. Not themed in v1 — tokens only, so BPM inherits the
+ * palette instead of sitting half-Steam-blue next to a themed client.
+ */
+@import "src/core/tokens.css";

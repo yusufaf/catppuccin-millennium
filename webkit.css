@@ -1,0 +1,3 @@
+/* Store, community and other Steam web views (hooked via "Steam-WebKit"). */
+@import "src/core/tokens.css";
+@import "src/core/base.css";

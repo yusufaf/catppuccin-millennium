@@ -1,0 +1,56 @@
+{
+	"name": "Catppuccin",
+	"author": "yusufaf",
+	"description": "Soothing pastel theme for Steam. Four flavors, fourteen accents.",
+	"version": "0.1.0",
+
+	"github": {
+		"owner": "yusufaf",
+		"repo_name": "catppuccin-millennium"
+	},
+
+	"header_image": "https://raw.githubusercontent.com/yusufaf/catppuccin-millennium/main/assets/preview.webp",
+	"splash_image": "https://raw.githubusercontent.com/yusufaf/catppuccin-millennium/main/assets/mocha.webp",
+
+	"tags": ["Catppuccin", "Pastel", "Dark", "Light"],
+
+	"UseDefaultPatches": true,
+	"Steam-WebKit": "webkit.css",
+
+	"Conditions": {
+		"Flavor": {
+			"description": "The Catppuccin flavor used across the client.",
+			"tab": "Appearance",
+			"section": "Colors",
+			"default": "Mocha",
+			"values": {
+				"Latte": { "TargetCss": { "affects": [".*"], "src": "src/flavors/latte.css" } },
+				"Frappé": { "TargetCss": { "affects": [".*"], "src": "src/flavors/frappe.css" } },
+				"Macchiato": { "TargetCss": { "affects": [".*"], "src": "src/flavors/macchiato.css" } },
+				"Mocha": { "TargetCss": { "affects": [".*"], "src": "src/flavors/mocha.css" } }
+			}
+		},
+		"Accent": {
+			"description": "Color used for selection, links, focus and primary actions.",
+			"tab": "Appearance",
+			"section": "Colors",
+			"default": "Mauve",
+			"values": {
+				"Rosewater": { "TargetCss": { "affects": [".*"], "src": "src/accents/rosewater.css" } },
+				"Flamingo": { "TargetCss": { "affects": [".*"], "src": "src/accents/flamingo.css" } },
+				"Pink": { "TargetCss": { "affects": [".*"], "src": "src/accents/pink.css" } },
+				"Mauve": { "TargetCss": { "affects": [".*"], "src": "src/accents/mauve.css" } },
+				"Red": { "TargetCss": { "affects": [".*"], "src": "src/accents/red.css" } },
+				"Maroon": { "TargetCss": { "affects": [".*"], "src": "src/accents/maroon.css" } },
+				"Peach": { "TargetCss": { "affects": [".*"], "src": "src/accents/peach.css" } },
+				"Yellow": { "TargetCss": { "affects": [".*"], "src": "src/accents/yellow.css" } },
+				"Green": { "TargetCss": { "affects": [".*"], "src": "src/accents/green.css" } },
+				"Teal": { "TargetCss": { "affects": [".*"], "src": "src/accents/teal.css" } },
+				"Sky": { "TargetCss": { "affects": [".*"], "src": "src/accents/sky.css" } },
+				"Sapphire": { "TargetCss": { "affects": [".*"], "src": "src/accents/sapphire.css" } },
+				"Blue": { "TargetCss": { "affects": [".*"], "src": "src/accents/blue.css" } },
+				"Lavender": { "TargetCss": { "affects": [".*"], "src": "src/accents/lavender.css" } }
+			}
+		}
+	}
+}
