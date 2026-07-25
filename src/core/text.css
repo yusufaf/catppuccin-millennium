@@ -1,0 +1,71 @@
+/*
+ * Text colours.
+ *
+ * Steam hardcodes white and near-white text throughout, on the assumption
+ * that every surface behind it is dark. That assumption holds for the three
+ * dark flavors by accident, and breaks completely on Latte, where light text
+ * lands on a light background and disappears.
+ *
+ * So text is remapped explicitly rather than left to inherit from body.
+ * Steam's original value is noted per group; the mapping preserves the
+ * hierarchy it encodes (full white = primary, translucent white = secondary,
+ * grey = tertiary) instead of flattening everything to one colour.
+ */
+
+/* Primary text — was rgb(255, 255, 255) */
+._3O48LaKWcabKx07xdrt1TH._3O48LaKWcabKx07xdrt1TH,
+._1XmVtR1hMvJmgGg2ltacUl._1XmVtR1hMvJmgGg2ltacUl,
+._2EXJTyc69b45nXI4h3RknI._2EXJTyc69b45nXI4h3RknI,
+._3om6pVKUdxdBkypYpSroHM._3om6pVKUdxdBkypYpSroHM,
+._2ohOQgahhMYnIEfAQmv9B8._2ohOQgahhMYnIEfAQmv9B8,
+.DialogDropDown_CurrentDisplay.DialogDropDown_CurrentDisplay {
+	color: var(--ctp-fg);
+}
+
+/* Secondary text — was rgba(255,255,255,0.7-0.8) and rgb(221,221,221) */
+.DVBcpUzJ0x6kaRMfug0OJ.DVBcpUzJ0x6kaRMfug0OJ,
+._1coklnw2_jdRKBFC5RMpfh._1coklnw2_jdRKBFC5RMpfh,
+._3bkuozxKIatrWG3aeisthc._3bkuozxKIatrWG3aeisthc,
+._2hfibYuzyMOQ0sj2egsHh0._2hfibYuzyMOQ0sj2egsHh0 {
+	color: var(--ctp-fg-muted);
+}
+
+/* Tertiary text — was rgba(255,255,255,0.4) and the grey family
+ * (#999, #a9a9a9, #aeaeaf, #a0a1a5, rgb(163,170,185)) */
+._1ANYFgwMyPpwJjIndAdGSr._1ANYFgwMyPpwJjIndAdGSr,
+._2rlKqvybYupc-uk64cdQ8D._2rlKqvybYupc-uk64cdQ8D,
+._28IqrZIgxpqkUQyhdaLDUN._28IqrZIgxpqkUQyhdaLDUN,
+._1kdinbVqPuXSbJRQa_pAuw._1kdinbVqPuXSbJRQa_pAuw,
+._2aw5aUUo3lrK6wxJb4_ms5._2aw5aUUo3lrK6wxJb4_ms5,
+._2qm05e8tWSAb-_fAHytQCP._2qm05e8tWSAb-_fAHytQCP,
+._1ljKTq3H58WbDZGNPfM0TY._1ljKTq3H58WbDZGNPfM0TY,
+._3kSh7qVSTDcPDePx9kya8C._3kSh7qVSTDcPDePx9kya8C {
+	color: var(--ctp-fg-dim);
+}
+
+/* Menu bar (Steam / View / Friends / Games / Help) and the status bar
+ * actions — were rgb(139, 146, 154), which fails contrast on Latte's crust */
+.bSKGlAJG2UVWTsntEJY2v.bSKGlAJG2UVWTsntEJY2v,
+._2UyOBeiSdBayaFdRa39N2O._2UyOBeiSdBayaFdRa39N2O > div,
+._3OhUxFVlQYr9W5ThxstR8k._3OhUxFVlQYr9W5ThxstR8k,
+._3wJnTtcTLEp0R7eQj_mK8Y._3wJnTtcTLEp0R7eQj_mK8Y {
+	color: var(--ctp-fg-muted);
+}
+
+/* Disabled / placeholder — was rgba(255, 255, 255, 0.2) */
+._29uten9Yy8q-n7woDEOXVF._29uten9Yy8q-n7woDEOXVF {
+	color: var(--ctp-fg-disabled);
+}
+
+/*
+ * Game list. Steam uses two colours here to separate installed titles from
+ * uninstalled ones, distinguished by a class on the row rather than on the
+ * label, so both halves need naming to keep that distinction alive.
+ */
+._2ws8DONH9fxQjPXEmRpujE ._1vO6BoiVslZgs1kqDGdUs8._1vO6BoiVslZgs1kqDGdUs8 {
+	color: var(--ctp-fg);
+}
+
+._5YTBr7WwIfzVU_3nUtAph ._1vO6BoiVslZgs1kqDGdUs8._1vO6BoiVslZgs1kqDGdUs8 {
+	color: var(--ctp-fg-dim);
+}

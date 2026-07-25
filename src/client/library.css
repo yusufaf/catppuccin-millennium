@@ -30,10 +30,19 @@
 	background-color: var(--ctp-bg-deep);
 }
 
-/* Selected game in the list — was Steam's rgb(26, 159, 255) */
+/* Accent surface — was Steam's rgb(26, 159, 255).
+ *
+ * Steam reuses this class for the selected game row *and* for notification
+ * toasts, so everything inside it sits on the accent and needs the contrasting
+ * foreground. Without the descendant rule the toast body inherits the normal
+ * text colour, which is invisible on Latte (dark text on a dark accent). */
+._2iJsgdTIX9Tj23rWnB7Q-c._2iJsgdTIX9Tj23rWnB7Q-c,
+._2iJsgdTIX9Tj23rWnB7Q-c._2iJsgdTIX9Tj23rWnB7Q-c * {
+	color: var(--ctp-brand-fg);
+}
+
 ._2iJsgdTIX9Tj23rWnB7Q-c._2iJsgdTIX9Tj23rWnB7Q-c {
 	background-color: var(--ctp-brand);
-	color: var(--ctp-brand-fg);
 }
 
 /* Game hero fade over the capsule art — was rgba(39, 44, 53, x) */

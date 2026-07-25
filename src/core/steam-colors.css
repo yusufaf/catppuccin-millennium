@@ -16,7 +16,8 @@
  * plain text, so the accent has to stay off the inactive tabs or the active
  * state stops being readable. */
 ._19axKcqYRuaJ8vdYKYmtTQ._19axKcqYRuaJ8vdYKYmtTQ {
-	color: var(--ctp-fg-dim);
+	/* muted rather than dim: dim only reaches ~3.7:1 against Latte's crust */
+	color: var(--ctp-fg-muted);
 	border-color: transparent;
 }
 

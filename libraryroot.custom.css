@@ -4,5 +4,6 @@
 @import "src/core/surfaces.css";
 @import "src/core/controls.css";
 @import "src/core/steam-colors.css";
+@import "src/core/text.css";
 @import "src/client/shell.css";
 @import "src/client/library.css";
