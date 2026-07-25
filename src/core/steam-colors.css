@@ -12,11 +12,25 @@
 }
 
 /* Active navigation tab and link accents, rgb(26, 159, 255) */
-/* Repeated a third time: Steam styles one state of this element with an extra
- * class, which outranks a two-class selector. */
-._19axKcqYRuaJ8vdYKYmtTQ._19axKcqYRuaJ8vdYKYmtTQ._19axKcqYRuaJ8vdYKYmtTQ {
+/* Navigation tabs. Steam only colours the *active* one, leaving the rest in
+ * plain text, so the accent has to stay off the inactive tabs or the active
+ * state stops being readable. */
+._19axKcqYRuaJ8vdYKYmtTQ._19axKcqYRuaJ8vdYKYmtTQ {
+	color: var(--ctp-fg-dim);
+	border-color: transparent;
+}
+
+/* The *active* navigation tab is styled through a state class on the parent,
+ * which outranks the rule above. Both halves are doubled to clear it. */
+._1gqEjB5QsKT_NftD1dEsdZ._1gqEjB5QsKT_NftD1dEsdZ ._19axKcqYRuaJ8vdYKYmtTQ._19axKcqYRuaJ8vdYKYmtTQ {
 	color: var(--ctp-brand);
 	border-color: var(--ctp-brand);
+}
+
+/* Shelf "new" badge, rgb(26, 159, 255) */
+.N8aJrSpxQ6II4CY_aFdYI.N8aJrSpxQ6II4CY_aFdYI {
+	background-color: var(--ctp-brand);
+	color: var(--ctp-brand-fg);
 }
 
 /* Header action button, rgb(25, 153, 255) */
