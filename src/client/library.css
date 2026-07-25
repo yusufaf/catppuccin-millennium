@@ -81,6 +81,25 @@
 	background-color: color-mix(in srgb, var(--ctp-bg-deep) 60%, transparent);
 }
 
+/* Install button — was a gradient rgb(71,191,255) -> rgb(26,68,194).
+ * Play stays green (ready to run); install is an action, so it takes the
+ * accent rather than a second green. */
+._3ydigb6zZAjJ0JCDgHwSYA._3ydigb6zZAjJ0JCDgHwSYA {
+	background-image: linear-gradient(to right, var(--ctp-brand) 0%, color-mix(in srgb, var(--ctp-brand) 70%, var(--ctp-bg-deep)) 100%);
+	color: var(--ctp-brand-fg);
+}
+
+/* Right-hand detail cards (achievements, friends, notes, trading cards) —
+ * were a blue-grey radial wash */
+._31ptFGGMZrSQc5BCX1e5lm._31ptFGGMZrSQc5BCX1e5lm {
+	background-image: radial-gradient(
+		100% 80% at 64% 95%,
+		color-mix(in srgb, var(--ctp-elevated-active) 45%, transparent) 0%,
+		color-mix(in srgb, var(--ctp-elevated) 30%, transparent) 40%,
+		transparent 100%
+	);
+}
+
 /* Section headers in the library home feed */
 ._3A_c3YHYd4YIjA8Y-olnPl._3A_c3YHYd4YIjA8Y-olnPl {
 	background-image: radial-gradient(circle at 0% 20%, color-mix(in srgb, var(--ctp-brand) 15%, transparent) 0%, transparent 70%);

@@ -9,8 +9,10 @@
 	color: var(--ctp-fg);
 }
 
+/* Was a teal-to-blue gradient, rgb(0,120,150) -> rgb(31,61,150) */
 .title-area-highlight.title-area-highlight {
 	background-color: var(--ctp-bg-deep);
+	background-image: none;
 }
 
 .windowControlButton.windowControlButton {
