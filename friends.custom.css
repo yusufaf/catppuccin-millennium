@@ -1,3 +1,14 @@
-/* Friends list and chat windows. */
+/*
+ * Friends list and chat windows.
+ *
+ * surfaces.css and controls.css hook Steam's unhashed, client-wide component
+ * classes (.DialogContent, .DialogButton), which are the same React components
+ * here as in the main window. src/core/text.css is deliberately NOT imported:
+ * its hashed classes were harvested from the library DOM, and carrying them
+ * into this window would mean maintaining selectors that never match.
+ */
 @import "src/core/tokens.css";
 @import "src/core/base.css";
+@import "src/core/surfaces.css";
+@import "src/core/controls.css";
+@import "src/client/friends.css";
