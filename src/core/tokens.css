@@ -46,6 +46,13 @@
 	--ctp-danger: var(--ctp-red, #f38ba8);
 	--ctp-info: var(--ctp-sky, #89dceb);
 
+	/* Friend presence. Steam distinguishes these by colour alone, so they are
+	 * kept as separate hues and deliberately NOT tied to the accent — an
+	 * accent change must not make two presence states look alike.
+	 * In-game reuses --ctp-success and online --ctp-info; only the broadcast
+	 * state needs a hue of its own. */
+	--ctp-presence-broadcast: var(--ctp-lavender, #b4befe);
+
 	/* Shape — kept as tokens so a slider condition can drive them later */
 	--ctp-radius-sm: 4px;
 	--ctp-radius: 8px;

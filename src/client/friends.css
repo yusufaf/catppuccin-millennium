@@ -18,6 +18,40 @@
 
 /* ---------------------------------------------------------------- shell -- */
 
+/*
+ * The friends list itself. Steam paints this with a hardcoded dark radial
+ * wash — radial-gradient(ellipse farthest-corner at 50% 30%, rgb(33,35,41),
+ * rgb(30,32,37) 50%, rgb(28,29,34)) — rather than a flat colour, which is why
+ * it survived the first pass untouched and left Latte showing a dark list
+ * under light section bars. The shape is kept but rebuilt from tokens, so the
+ * list still has depth instead of reading as one flat slab.
+ *
+ * Steam ships a second, plain `background:#000` variant of this rule for
+ * prefers-contrast; both are 0-1-0, so one doubled selector covers them.
+ */
+.friendlistListContainer.friendlistListContainer {
+	background: radial-gradient(
+		ellipse farthest-corner at 50% 30%,
+		var(--ctp-elevated) 0%,
+		var(--ctp-bg) 55%,
+		var(--ctp-bg-alt) 100%
+	);
+}
+
+/* The FRIENDS bar carrying the search and add-friend icons — was #434953.
+ * This is .socialSearchContainer, NOT .friendsListSectionTitle below; they
+ * look like one component but are separate elements, which is why theming the
+ * latter alone left this bar stock Steam grey. */
+.socialSearchContainer.socialSearchContainer {
+	background-color: var(--ctp-bg-alt);
+}
+
+/* Chat tab strip — was #1c232c with a light inset hairline */
+.titleBarContainer.ChatTabs.ChatTabs {
+	background-color: var(--ctp-bg-alt);
+	box-shadow: inset 1px 1px 0px var(--ctp-border);
+}
+
 /* Friends window body and the chat side of it — was #22252b, and #0c0d0f
  * for the inset (docked-window) variant. */
 .chatWindow .chatEntry.chatEntry {
@@ -64,11 +98,15 @@
 
 /* Steam tints the online and offline groups with a long vertical wash. Both
  * fade to transparent, so only the top stop carries colour:
- * online was rgba(72, 87, 112, 0.2), offline rgba(0, 0, 0, 0.4). */
+ * online was rgba(72, 87, 112, 0.2), offline rgba(0, 0, 0, 0.4).
+ *
+ * The alpha matters more than the hue here — these are meant to be a hint of
+ * separation, not a visible band. A first pass at 55% turned both groups into
+ * obvious stripes, so they track Steam's own alphas instead. */
 .FriendsListContent .friendlistListContainer .friendGroup.onlineFriends.onlineFriends {
 	background: linear-gradient(
 		to bottom,
-		color-mix(in srgb, var(--ctp-elevated) 55%, transparent) 0,
+		color-mix(in srgb, var(--ctp-elevated) 20%, transparent) 0,
 		transparent 320px
 	);
 }
@@ -76,9 +114,32 @@
 .FriendsListContent .friendlistListContainer .friendGroup.offlineFriends.offlineFriends {
 	background: linear-gradient(
 		to bottom,
-		color-mix(in srgb, var(--ctp-bg-deep) 55%, transparent) 0,
+		color-mix(in srgb, var(--ctp-bg-deep) 25%, transparent) 0,
 		transparent 320px
 	);
+}
+
+/*
+ * Row hover, and the row left highlighted while its context menu is open.
+ * Steam tints these by presence rather than using one neutral highlight —
+ * green-ish rgba(39,52,36,.3) in-game, blue-ish rgba(36,52,64,.3) online,
+ * rgba(0,0,0,.5) offline — so the tint is preserved. Kept well below half
+ * strength: this is a hover hint sitting on top of the group wash, and the
+ * two stack.
+ */
+.friendStatusHover.ingame:hover,
+.friendStatusHover.ingame.Friend_ContextMenuActive {
+	background-color: color-mix(in srgb, var(--ctp-success) 18%, transparent);
+}
+
+.friendStatusHover.online:hover,
+.friendStatusHover.online.Friend_ContextMenuActive {
+	background-color: color-mix(in srgb, var(--ctp-info) 18%, transparent);
+}
+
+.friendStatusHover.offline:hover,
+.friendStatusHover.offline.Friend_ContextMenuActive {
+	background-color: color-mix(in srgb, var(--ctp-elevated) 45%, transparent);
 }
 
 /* Group labels ("In-Game", "Online", "Offline") — was #c5d6d4 */
@@ -196,6 +257,12 @@
 ._1DsumfIa3MlkzUV9EXY5W9._1DsumfIa3MlkzUV9EXY5W9.in-game ._2n0EiKMGRP-r_BI5tDtttu._2n0EiKMGRP-r_BI5tDtttu,
 ._1DsumfIa3MlkzUV9EXY5W9._1DsumfIa3MlkzUV9EXY5W9.in-game.rpZ9bKyFXYvNQvgtKn5GV ._2n0EiKMGRP-r_BI5tDtttu._2n0EiKMGRP-r_BI5tDtttu {
 	color: var(--ctp-success);
+}
+
+/* Status line, watching a broadcast — was #c9bdf7, a fourth hue Steam uses to
+ * keep this apart from plain "online" */
+._1DsumfIa3MlkzUV9EXY5W9._1DsumfIa3MlkzUV9EXY5W9.watchingbroadcast ._2n0EiKMGRP-r_BI5tDtttu._2n0EiKMGRP-r_BI5tDtttu {
+	color: var(--ctp-presence-broadcast);
 }
 
 /* Avatar status ring — was #6dcff6 online, #bff02b in-game */
