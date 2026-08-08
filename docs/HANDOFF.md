@@ -23,13 +23,55 @@ On Windows a junction needs no admin rights:
 New-Item -ItemType Junction -Path "$steam\millennium\themes\Catppuccin" -Target <repo>
 ```
 
-1. Steam must run with `-dev`, which exposes CDP on `http://127.0.0.1:8080`.
-   Check `curl -s http://127.0.0.1:8080/json/version` before anything else.
-2. **To apply a CSS edit:** evaluate `SteamClient.Browser.RestartJSContext()` in
-   the `SharedJSContext` target. **Never `location.reload()`** — Millennium
-   injects only on window *creation*, so a reload returns the window completely
-   unthemed and looks like your CSS broke.
-3. `skin.json` changes need a full Steam restart.
+1. **To apply a CSS edit:** evaluate `SteamClient.Browser.RestartJSContext()` in
+   the `SharedJSContext` target — *if you have CDP*, which you probably do not;
+   see below. **Never `location.reload()`** — Millennium injects only on window
+   *creation*, so a reload returns the window completely unthemed and looks like
+   your CSS broke. Without CDP, restart Steam.
+2. `skin.json` changes need a full Steam restart.
+
+### CDP is gone as of the August 2026 client — read this first
+
+The recon workflow below was built against a Steam client whose CEF was
+Chrome 126 and which served DevTools over TCP on `http://127.0.0.1:8080`.
+**That endpoint no longer exists.** Verified on 2026-08-08 against client
+buildid 1785799196 (CEF **Chrome 146**):
+
+- `steamwebhelper` is launched with **both** `--remote-debugging-pipe` and
+  `--remote-debugging-port=8080`. Modern Chromium serves DevTools over the pipe
+  and never binds the TCP listener.
+- Nothing listens on 8080 (`netstat`), and a sweep of every localhost listener
+  found no Steam CDP endpoint at all.
+- Creating the `.cef-enable-remote-debugging` marker in the Steam root *does*
+  work — the flag appears in the command line — but has no effect, because the
+  pipe wins.
+- Launching with `-dev` does not change this.
+- Millennium is unaffected: it injects in-process via `millennium.dll`, which
+  is why the theme still renders normally.
+
+So the five scans below cannot be run. **Do not spend time trying to get 8080
+to answer.** If a future Steam or Millennium build restores a TCP endpoint,
+the scans are still the better method and this section should be revisited.
+
+### Working without CDP: Steam ships its CSS on disk
+
+Steam's real stylesheets live in `<Steam>/steamui/css/`, chiefly a ~4.7 MB
+`chunk~2dcc5aaf7.css` plus `library.css`. They contain every class name the
+client uses **and the colour each one sets**, which is a better source for
+building a durable class→colour map than scraping the DOM ever was. What it
+cannot give you: which classes are actually present in a given window, and any
+live contrast measurement. Those now depend on the user's screenshots.
+
+The files are minified onto a handful of enormous lines, so ripgrep alone is
+useless — you need something that walks brace depth to recover whole rules.
+Note that Steam's bundle genuinely repeats identical rules (one was emitted 11
+times), so dedupe before reading, and filter out the `GamepadMode` /
+`SteamDeck` / `QuickAccess-Menu` variants, which are Big Picture.
+
+Useful check that replaces "does this selector exist": extract every class from
+a rule file and grep each against the bundle. All 58 in `src/client/friends.css`
+were confirmed this way, as were every hashed class in `src/core/text.css` —
+the Chrome 146 update did **not** regenerate Steam's hashed names.
 
 ### CDP driver
 
@@ -90,9 +132,15 @@ Worth an upstream issue on `SteamClientHomebrew/Millennium`. Until it is fixed,
 **always restart Steam fully before judging a web view.**
 
 ### 3. Unthemed areas
-Friends list and chat (`friends.custom.css` is tokens-only), notification toasts,
-context menus, downloads page, game properties dialog. Each needs the user to
-open that surface so it exists as a DOM target to inspect.
+Notification toasts, context menus, downloads page, game properties dialog.
+
+Friends and chat now have a first pass in `src/client/friends.css`, built from
+Steam's shipped CSS and **not yet confirmed visually** — the surfaces, list
+rows, presence colours, unread badge and chat transcript are mapped; the
+composer, emoticon tray and the friend context menu are not. That file is
+imported by both `friends.custom.css` and `libraryroot.custom.css`, because
+chat can be docked into the main window; every selector in it is scoped to a
+friends or chat class.
 
 ### 4. Latte contrast outside the library
 Same method as `src/core/text.css`. Steam hardcodes near-white text assuming a
