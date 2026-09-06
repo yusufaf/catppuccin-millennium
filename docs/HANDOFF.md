@@ -109,61 +109,13 @@ this. Confirm visually before chasing.
 
 ---
 
-## Queued work, highest value first
+## Queued work
 
-### 1. Verify the store/community pass on Latte
-`src/webkit/store.css` was written against the live store markup, but its
-**colours have never been verified** because of the bug in item 2. It also never
-received the text remapping `src/core/text.css` does for the client, so expect
-the same white-on-light failures Latte had.
-
-Fully restart Steam, open the Store tab, then run the light-text and contrast
-scans against the `store.steampowered.com` target.
-
-### 2. Millennium bug: flavor changes don't reach web views
-Confirmed live — the client rendered Latte while the store webview was still
-loading `src/flavors/mocha.css`. `Core_ChangeCondition` writes config with
-`skipPropagation=true`, so `theme_cfg.cc::on_config_change_hdlr` never re-runs
-`add_conditional_data` and the webkit hooks keep whichever flavor was active at
-startup. Client windows re-evaluate conditions on every window creation, so they
-update immediately.
-
-Worth an upstream issue on `SteamClientHomebrew/Millennium`. Until it is fixed,
-**always restart Steam fully before judging a web view.**
-
-### 3. Unthemed areas
-Notification toasts, context menus, downloads page, game properties dialog.
-
-Friends and chat now have a first pass in `src/client/friends.css`, built from
-Steam's shipped CSS and **not yet confirmed visually** — the surfaces, list
-rows, presence colours, unread badge and chat transcript are mapped; the
-composer, emoticon tray and the friend context menu are not. That file is
-imported by both `friends.custom.css` and `libraryroot.custom.css`, because
-chat can be docked into the main window; every selector in it is scoped to a
-friends or chat class.
-
-### 4. Latte contrast outside the library
-Same method as `src/core/text.css`. Steam hardcodes near-white text assuming a
-dark surface behind it; the dark flavors hide this, Latte exposes it. Known
-remaining: active nav tab at 4.09:1 and the URL bar at 4.13:1 — both clear the
-3:1 large-text bar but sit under the 4.5:1 body-text bar.
-
-### 5. Assets and release
-`assets/` contains only `.gitkeep`, yet `skin.json` already points
-`header_image` / `splash_image` at `assets/preview.webp` and
-`assets/mocha.webp` — **both currently 404**. Needs real screenshots plus a
-[catwalk](https://github.com/catppuccin/catwalk) four-flavor composite before any
-submission to Millennium or the Catppuccin org.
-
-### 6. Extras tweaks
-Opt-in checkboxes: accent play button, rounded corners, coloured game-state text,
-hide What's New shelf. Not started — there is no `src/tweaks/` yet. Note that
-condition **names are the storage key**: renaming one resets every user to the
-default, so freeze the names before v1.0.0.
-
-### 7. Small known holdouts
-An SVG icon still at `#09b9ff` whose fill comes from markup rather than a class,
-so it needs a different hook; and one shelf badge.
+Tracked as GitHub issues and milestones, not here — the milestones are
+`v0.2.0` (remaining client surfaces), `v0.3.0` (Latte parity), `v1.0.0` (org
+submission), `Big Picture Mode`, and `Housekeeping`. Check
+`gh issue list --milestone <name>` or the repo's Issues tab rather than this
+file for what's next and its current status.
 
 ---
 
