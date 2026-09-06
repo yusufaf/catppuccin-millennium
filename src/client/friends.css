@@ -1,0 +1,342 @@
+/*
+ * Friends list and chat.
+ *
+ * Unlike the library, Steam styles this UI almost entirely through readable
+ * class names (.friendsui-container, .chatWindow, .friendsListSectionTitle),
+ * with hashed names appearing only around presence text. That makes these
+ * rules far more durable across client updates than the library's.
+ *
+ * Colours here were read out of Steam's own shipped bundle,
+ * <Steam>/steamui/css/chunk~2dcc5aaf7.css, rather than off the live DOM: the
+ * July 2026 client moved CEF to Chrome 146, which serves DevTools over a pipe
+ * and no longer binds the TCP endpoint the recon scans in docs/HANDOFF.md
+ * relied on. Each rule records the value it replaces, as usual.
+ *
+ * Steam's Big Picture variants (.GamepadMode, .SteamDeck, #QuickAccess-Menu)
+ * are deliberately left alone — Big Picture is not themed yet.
+ */
+
+/* ---------------------------------------------------------------- shell -- */
+
+/*
+ * The friends list itself. Steam paints this with a hardcoded dark radial
+ * wash — radial-gradient(ellipse farthest-corner at 50% 30%, rgb(33,35,41),
+ * rgb(30,32,37) 50%, rgb(28,29,34)) — rather than a flat colour, which is why
+ * it survived the first pass untouched and left Latte showing a dark list
+ * under light section bars. The shape is kept but rebuilt from tokens, so the
+ * list still has depth instead of reading as one flat slab.
+ *
+ * Steam ships a second, plain `background:#000` variant of this rule for
+ * prefers-contrast; both are 0-1-0, so one doubled selector covers them.
+ */
+.friendlistListContainer.friendlistListContainer {
+	background: radial-gradient(
+		ellipse farthest-corner at 50% 30%,
+		var(--ctp-elevated) 0%,
+		var(--ctp-bg) 55%,
+		var(--ctp-bg-alt) 100%
+	);
+}
+
+/* The FRIENDS bar carrying the search and add-friend icons — was #434953.
+ * This is .socialSearchContainer, NOT .friendsListSectionTitle below; they
+ * look like one component but are separate elements, which is why theming the
+ * latter alone left this bar stock Steam grey. */
+.socialSearchContainer.socialSearchContainer {
+	background-color: var(--ctp-bg-alt);
+}
+
+/* Chat tab strip — was #1c232c with a light inset hairline */
+.titleBarContainer.ChatTabs.ChatTabs {
+	background-color: var(--ctp-bg-alt);
+	box-shadow: inset 1px 1px 0px var(--ctp-border);
+}
+
+/* Friends window body and the chat side of it — was #22252b, and #0c0d0f
+ * for the inset (docked-window) variant. */
+.chatWindow .chatEntry.chatEntry {
+	background-color: var(--ctp-bg-alt);
+}
+
+.chatWindow .InsetWindowOpen .chatEntry.chatEntry {
+	background-color: var(--ctp-bg-deep);
+}
+
+/* Section headers ("FRIENDS", "GROUP CHATS"). Steam ships two variants of
+ * this rule; the live one is #434953 on #b7ccd5. */
+.friendsListSectionTitle.friendsListSectionTitle {
+	background-color: var(--ctp-bg-alt);
+	color: var(--ctp-fg-muted);
+}
+
+/* Was #4a515c */
+.friendsListSectionTitle.chatSectionTitle.chatSectionTitle:hover {
+	background-color: var(--ctp-elevated);
+}
+
+.friendsListSectionTitle.friendsListSectionTitle .SVGIcon_NewChatGroup {
+	fill: var(--ctp-fg-muted);
+}
+
+.friendsListSectionTitle.friendsListSectionTitle .createChatRoomButton:hover .SVGIcon_NewChatGroup {
+	fill: var(--ctp-fg);
+}
+
+/* The tab that reopens the friends list — was #ddd on #1c1f22 */
+.chatTabOpenFriendsList.chatTabOpenFriendsList {
+	background-color: var(--ctp-bg-alt);
+	color: var(--ctp-fg);
+	box-shadow: none;
+}
+
+/* Was #3a3e46 */
+.chatTabOpenFriendsList.chatTabOpenFriendsList:hover {
+	background-color: var(--ctp-elevated);
+}
+
+/* ------------------------------------------------------------ list rows -- */
+
+/* Steam tints the online and offline groups with a long vertical wash. Both
+ * fade to transparent, so only the top stop carries colour:
+ * online was rgba(72, 87, 112, 0.2), offline rgba(0, 0, 0, 0.4).
+ *
+ * The alpha matters more than the hue here — these are meant to be a hint of
+ * separation, not a visible band. A first pass at 55% turned both groups into
+ * obvious stripes, so they track Steam's own alphas instead. */
+.FriendsListContent .friendlistListContainer .friendGroup.onlineFriends.onlineFriends {
+	background: linear-gradient(
+		to bottom,
+		color-mix(in srgb, var(--ctp-elevated) 20%, transparent) 0,
+		transparent 320px
+	);
+}
+
+.FriendsListContent .friendlistListContainer .friendGroup.offlineFriends.offlineFriends {
+	background: linear-gradient(
+		to bottom,
+		color-mix(in srgb, var(--ctp-bg-deep) 25%, transparent) 0,
+		transparent 320px
+	);
+}
+
+/*
+ * Row hover, and the row left highlighted while its context menu is open.
+ * Steam tints these by presence rather than using one neutral highlight —
+ * green-ish rgba(39,52,36,.3) in-game, blue-ish rgba(36,52,64,.3) online,
+ * rgba(0,0,0,.5) offline — so the tint is preserved. Kept well below half
+ * strength: this is a hover hint sitting on top of the group wash, and the
+ * two stack.
+ */
+.friendStatusHover.ingame:hover,
+.friendStatusHover.ingame.Friend_ContextMenuActive {
+	background-color: color-mix(in srgb, var(--ctp-success) 18%, transparent);
+}
+
+.friendStatusHover.online:hover,
+.friendStatusHover.online.Friend_ContextMenuActive {
+	background-color: color-mix(in srgb, var(--ctp-info) 18%, transparent);
+}
+
+.friendStatusHover.offline:hover,
+.friendStatusHover.offline.Friend_ContextMenuActive {
+	background-color: color-mix(in srgb, var(--ctp-elevated) 45%, transparent);
+}
+
+/* Group labels ("In-Game", "Online", "Offline") — was #c5d6d4 */
+.FriendsListContent .friendlistListContainer .friendGroup.onlineFriends .groupName.groupName,
+.FriendsListContent .friendlistListContainer .friendGroup.offlineFriends .groupName.groupName {
+	color: var(--ctp-fg-dim);
+}
+
+/* Pending friend requests are called out in amber — was #ffc628. Kept as a
+ * distinct warning colour rather than folded into the accent, because it is
+ * the only thing separating a request from an ordinary group header. */
+.FriendsListContent .friendlistListContainer .friendGroup.friendRequests .groupName.groupName {
+	color: var(--ctp-warning);
+}
+
+/* Member counts inside a group chat — was #666 */
+.chatRoomMembers .friendGroup .groupName .groupCount.groupCount {
+	color: var(--ctp-fg-disabled);
+}
+
+/* Empty-state text and its link — were rgba(197,214,212,.35) and
+ * rgba(213,231,229,.5) */
+.ChatRoomList .ChatRoomList_Empty.ChatRoomList_Empty {
+	color: var(--ctp-fg-disabled);
+}
+
+.ChatRoomList_Empty.ChatRoomList_Empty a {
+	color: var(--ctp-link);
+}
+
+/* Unread message count — was a translucent amber, rgba(218,149,0,.35), with a
+ * matching glow. Carries the accent instead, which is what the accent is for. */
+.ChatRoomListGroupItem .FriendMessageCount.FriendMessageCount,
+.unreadFriend .FriendMessageCount.FriendMessageCount {
+	background: var(--ctp-brand);
+	color: var(--ctp-brand-fg);
+	box-shadow: none;
+}
+
+/* --------------------------------------------------------------- chat  --- */
+
+/* Active text channel underline, drawn as ::after — was #1a9fff. Steam scopes
+ * this through a hashed parent (0-3-0), so both halves are doubled to clear
+ * it without reaching for !important. */
+.chatRoomTextChannel.chatRoomTextChannel.ActiveTextChannel.ActiveTextChannel::after {
+	background: var(--ctp-brand);
+}
+
+/* Date separators in the transcript — was #4f5257, and a translucent amber
+ * rgba(254,205,69,.47) for the unread marker. */
+.msg.timeDivision.timeDivision {
+	color: var(--ctp-fg-disabled);
+}
+
+.msg.timeDivision.new_messages.new_messages {
+	color: var(--ctp-warning);
+}
+
+/* System / server messages ("X has joined") — was #5097b4 */
+.msg.serverMsg .msgText.msgText {
+	color: var(--ctp-info);
+}
+
+/* Link previews. Title was #aad8ec, the URL strip #8fc3d8. */
+.msg .ChatMessageOpenGraph_Title.ChatMessageOpenGraph_Title {
+	color: var(--ctp-link);
+}
+
+.msg .ChatMessageOpenGraph_Title.ChatMessageOpenGraph_Title:hover {
+	color: var(--ctp-fg);
+}
+
+.msg .OpenGraphMessageURL.OpenGraphMessageURL {
+	color: var(--ctp-fg-dim);
+}
+
+/* Expiry text on an invite — was rgba(116,133,155,.5) */
+.msg.ChatMessageInvite .invitedTimeLabel.invitedTimeLabel,
+.Invite_ExpireTime.Invite_ExpireTime {
+	color: var(--ctp-fg-disabled);
+}
+
+/* History search selector — was #3d4450 */
+.ChatHistorySelector.ChatHistorySelector {
+	background-color: var(--ctp-elevated);
+	background-image: none;
+}
+
+/* ------------------------------------------------------------- presence -- */
+
+/*
+ * Presence is the one place in this file where the information design matters
+ * more than the palette: Steam encodes in-game / online / offline with colour
+ * alone, so these stay separate hues rather than collapsing onto the accent.
+ *
+ * Steam ships a second, brighter value for each state, used when the row is
+ * selected — it needs one because its selected row is a pale blue. Ours is
+ * --ctp-elevated-hover, which the base state already reads against, so the
+ * selected rules point at the same token. They cannot simply be dropped:
+ * Steam's selected-row selectors outrank the base ones and would otherwise
+ * keep painting its own colour.
+ *
+ * The container classes are hashed, so these are the rules most likely to need
+ * re-mapping after a client update; the replaced values are recorded so that
+ * is mechanical.
+ */
+
+/* Status line, online — was #4c91ac, and #6dcff6 on the selected row */
+._1DsumfIa3MlkzUV9EXY5W9._1DsumfIa3MlkzUV9EXY5W9.online ._2n0EiKMGRP-r_BI5tDtttu._2n0EiKMGRP-r_BI5tDtttu,
+._1DsumfIa3MlkzUV9EXY5W9._1DsumfIa3MlkzUV9EXY5W9.online.rpZ9bKyFXYvNQvgtKn5GV ._2n0EiKMGRP-r_BI5tDtttu._2n0EiKMGRP-r_BI5tDtttu {
+	color: var(--ctp-info);
+}
+
+/* Status line, in-game — was #91c257, and #a1f410 on the selected row */
+._1DsumfIa3MlkzUV9EXY5W9._1DsumfIa3MlkzUV9EXY5W9.in-game ._2n0EiKMGRP-r_BI5tDtttu._2n0EiKMGRP-r_BI5tDtttu,
+._1DsumfIa3MlkzUV9EXY5W9._1DsumfIa3MlkzUV9EXY5W9.in-game.rpZ9bKyFXYvNQvgtKn5GV ._2n0EiKMGRP-r_BI5tDtttu._2n0EiKMGRP-r_BI5tDtttu {
+	color: var(--ctp-success);
+}
+
+/* Status line, watching a broadcast — was #c9bdf7, a fourth hue Steam uses to
+ * keep this apart from plain "online" */
+._1DsumfIa3MlkzUV9EXY5W9._1DsumfIa3MlkzUV9EXY5W9.watchingbroadcast ._2n0EiKMGRP-r_BI5tDtttu._2n0EiKMGRP-r_BI5tDtttu {
+	color: var(--ctp-presence-broadcast);
+}
+
+/* Avatar status ring — was #6dcff6 online, #bff02b in-game */
+._1xTATKELHR-lRS_s3A4yzd ._2jZ0A5VjGTNGTQm03FbLrF.online ._1YdpXFoH7P9pEEXDMITSHu._1k5YkN8kx48i2TZ6kG9muA {
+	background: var(--ctp-info);
+}
+
+._1xTATKELHR-lRS_s3A4yzd ._2jZ0A5VjGTNGTQm03FbLrF.in-game ._1YdpXFoH7P9pEEXDMITSHu._1k5YkN8kx48i2TZ6kG9muA {
+	background: var(--ctp-success);
+}
+
+/* Device icons next to a name (Deck, VR, phone, Big Picture) follow the same
+ * two states — were #4c91ac online and #80aa4d in-game. */
+.KxAI_M9gWx3OnKSshHOs6.online .SVGIcon_SteamDeck path,
+.KxAI_M9gWx3OnKSshHOs6.online .SVGIcon_VRIcon path,
+.KxAI_M9gWx3OnKSshHOs6.online .SVGIcon_MobilePhone path,
+.KxAI_M9gWx3OnKSshHOs6.online .SVGIcon_BigPicture path {
+	fill: var(--ctp-info);
+}
+
+.KxAI_M9gWx3OnKSshHOs6.ingame .SVGIcon_SteamDeck path,
+.KxAI_M9gWx3OnKSshHOs6.ingame .SVGIcon_VRIcon path,
+.KxAI_M9gWx3OnKSshHOs6.ingame .SVGIcon_MobilePhone path,
+.KxAI_M9gWx3OnKSshHOs6.ingame .SVGIcon_BigPicture path {
+	fill: var(--ctp-success);
+}
+
+/* ----------------------------------------------------------------- misc -- */
+
+/* Steam hides these scrollbars until hover — was #434953, #58606d on hover.
+ * src/core/base.css paints scrollbars globally; this keeps the reveal-on-hover
+ * behaviour rather than overriding it with a permanently visible thumb. */
+.ChatRoomList::-webkit-scrollbar-thumb,
+.friendlistListContainer::-webkit-scrollbar-thumb {
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.ChatRoomList:hover::-webkit-scrollbar-thumb,
+.friendlistListContainer:hover::-webkit-scrollbar-thumb {
+	background-color: var(--ctp-elevated-hover);
+}
+
+.friendlistListContainer:hover::-webkit-scrollbar-thumb:hover,
+.ChatRoomList ::-webkit-scrollbar-thumb:hover {
+	background-color: var(--ctp-elevated-active);
+}
+
+/* Toolbar icons — copy-to-clipboard was #8492a4, text-chat #686e73 */
+.friendsui-container .SVGIcon_Button.SVGIcon_CopyToClipboard {
+	stroke: var(--ctp-fg-dim);
+}
+
+.friendsui-container .SVGIcon_TextChat {
+	fill: var(--ctp-fg-dim);
+}
+
+.friendsui-container .SVGIcon_SortBy {
+	stroke: var(--ctp-fg-muted);
+}
+
+/* Invite-a-friend plus sign — was #539eff */
+.friendsui-container .SVGIcon_InviteFriend .InvitePlus {
+	fill: var(--ctp-brand);
+}
+
+.friendsui-container .SVGIcon_InviteFriend:hover .InvitePlus {
+	fill: var(--ctp-fg);
+}
+
+/* Notification bell — was #ffdc17 */
+.friendsui-container .SVGIcon_Notification polygon,
+.friendsui-container .SVGIcon_Notification polyline,
+.friendsui-container .SVGIcon_Notification rect,
+.friendsui-container .SVGIcon_Notification line {
+	fill: var(--ctp-warning);
+}

@@ -7,3 +7,7 @@
 @import "src/core/text.css";
 @import "src/client/shell.css";
 @import "src/client/library.css";
+/* Chat can be docked into the main window rather than opened as its own
+ * window, so the friends rules have to reach here too. Every selector in
+ * that file is scoped to a friends or chat class, so nothing else moves. */
+@import "src/client/friends.css";
